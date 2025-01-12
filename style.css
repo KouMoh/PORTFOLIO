@@ -194,11 +194,16 @@
             text-align: center;
         }
 
-        .about-content p {
+        .about-content {
             font-size: 1.6rem;
             margin: -4rem 0 3rem;
-            text-align: center;
+            text-align:justify;
         }
+
+        .about-content li{
+            padding: 1.5rem;
+        }
+        
 
         .about-content .btn {
             display: flex;
