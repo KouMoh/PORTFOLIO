@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: portfolio-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: MONGO_URI
+        sync: false # set manually in Render dashboard
+      - key: CORS_ORIGIN
+        sync: false
+      - key: NODE_ENV
+        value: production

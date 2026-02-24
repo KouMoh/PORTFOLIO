@@ -38,3 +38,68 @@ function openFullImg(pic){
 function closeFullImg(){
     fullImgBox.style.display = "none";
 }
+
+const contactForm = document.getElementById('contactForm');
+const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+const CONTACT_API_URL = window.CONTACT_API_URL || 'http://localhost:5000/api/contact';
+
+if (contactForm) {
+    contactForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(contactForm);
+        const payload = {
+            name: formData.get('name')?.toString().trim(),
+            email: formData.get('email')?.toString().trim(),
+            phone: formData.get('phone')?.toString().trim(),
+            subject: formData.get('subject')?.toString().trim(),
+            message: formData.get('message')?.toString().trim()
+        };
+
+        if (!payload.name || !payload.email || !payload.subject || !payload.message) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Missing fields',
+                text: 'Please fill all required fields before submitting.'
+            });
+            return;
+        }
+
+        try {
+            contactSubmitBtn.disabled = true;
+            contactSubmitBtn.value = 'Sending...';
+
+            const response = await fetch(CONTACT_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Unable to send message right now.');
+            }
+
+            await Swal.fire({
+                icon: 'success',
+                title: 'Message sent!',
+                text: data.message || 'Thanks for contacting me. I will get back to you soon.',
+                confirmButtonText: 'OK'
+            });
+
+            contactForm.reset();
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Submission failed',
+                text: error.message || 'Something went wrong. Please try again.'
+            });
+        } finally {
+            contactSubmitBtn.disabled = false;
+            contactSubmitBtn.value = 'Send Message';
+        }
+    });
+}
