@@ -16,9 +16,14 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+
+const corsOrigin = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.replace(/\/+$/, '') // strip trailing slashes
+    : '*';
+
 app.use(
     cors({
-        origin: process.env.CORS_ORIGIN || '*'
+        origin: corsOrigin
     })
 );
 
