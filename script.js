@@ -41,7 +41,10 @@ function closeFullImg(){
 
 const contactForm = document.getElementById('contactForm');
 const contactSubmitBtn = document.getElementById('contactSubmitBtn');
-const CONTACT_API_URL = window.CONTACT_API_URL || 'http://localhost:5000/api/contact';
+
+if (typeof CONTACT_API_URL === 'undefined') {
+    console.warn('CONTACT_API_URL is not defined. Make sure config.js is loaded before script.js');
+}
 
 if (contactForm) {
     contactForm.addEventListener('submit', async (event) => {
