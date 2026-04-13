@@ -19,7 +19,7 @@ ScrollReveal().reveal('.home-content,.heading,.about-content p', { origin: 'top'
 ScrollReveal().reveal('.home-img,.services-container, .portfolio-box, .contact form, .gallery-container' ,{ origin: 'bottom ' });
 
 const typed = new Typed('.multi',{
-    strings: ['Aspiring Software Engineer', 'Tablist', 'Student'],
+    strings: ['Software Solutionist', 'Tablist', 'Autodidact'],
 
     typeSpeed:100,
     backSpeed:100,
